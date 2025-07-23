@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/modules/common/components/Navbar";
 
 const videos = [
     {
@@ -42,7 +41,6 @@ const videos = [
         description: "Learn the basics of kickboxing with our expert instructors.",
         videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
     },
-    // Add more videos here if needed
 ];
 
 export default function VideosPage() {

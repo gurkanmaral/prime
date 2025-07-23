@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 const Navbar = () => {
     const scrollToSection = (id: string) => {
@@ -11,9 +12,7 @@ const Navbar = () => {
     };
 
     const navItems = [
-        { label: "Hakkımızda", id: "aboutUs" },
-        { label: "İçeriklerimiz", id: "ourContent" },
-        { label: "İletişim", id: "contactUs" },
+        { label: "Anasayfa", id: "aboutUs",link:"/" },
     ];
 
     return (
@@ -26,14 +25,14 @@ const Navbar = () => {
                 </div>
                 <div className="col-span-6 pt-4 pb-4 flex gap-10 items-center justify-center max-md:hidden">
                     {navItems.map((item) => (
-                        <span
+                        <Link
                             key={item.id}
-                            onClick={() => scrollToSection(item.id)}
+                            href={item.link}
                             className="font-bold text-lg text-gray-100 cursor-pointer relative group"
                         >
                             {item.label}
                             <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gray-300 transition-all duration-300 group-hover:w-full" />
-                        </span>
+                        </Link>
                     ))}
                 </div>
                 <div className="col-span-3 flex items-center justify-end pr-4 md:hidden">
