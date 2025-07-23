@@ -28,11 +28,10 @@ interface Video {
         url: string;
     };
 }
-
+const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL!;
 export default function Home() {
     const [carouselVideos, setCarouselVideos] = useState<Video[]>([]);
     const [loading, setLoading] = useState(true);
-    const strapiApiUrl = 'http://localhost:1337';
 
     useEffect(() => {
         const fetchCarouselVideos = async () => {
