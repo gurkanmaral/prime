@@ -17,39 +17,19 @@ const font = Poppins({
     weight: ['300', '400', '500', '700'],
 });
 
-const strapiApiUrl = 'http://localhost:1337';
+const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL!;
 
 interface Props {
-    id:string;
+    post:any;
 }
 
 type FullBlogPost = BlogPost & { content: string };
 
-const BlogDetailView =({id}:Props) => {
-    const [post, setPost] = useState<FullBlogPost | null>(null);
-    const { scrollYProgress } = useScroll();
-    const strapiApiUrl = 'http://localhost:1337';
+const BlogDetailView =({post}:Props) => {
 
-    console.log(id,"id")
+    const { scrollYProgress } = useScroll();
     const heroImageY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-    useEffect(() => {
-        const fetchPostBySlug = async () => {
-            if (!id) return;
-            try {
-                const response = await fetch(
-                    `${strapiApiUrl}/api/blogs?populate[author][populate]=avatar&populate=cover_image&filters[slug][$eq]=${id}`
-                );
-                if (!response.ok) throw new Error('Post not found');
-                const result = await response.json();
-                if (result.data && result.data.length > 0) {
-                    setPost(result.data[0]);
-                }
-            } catch (error) {
-                console.error("Error fetching post:", error);
-            }
-        };
-        fetchPostBySlug();
-    }, [id]);
+
     if (!post) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-900">

@@ -1,8 +1,15 @@
 import BlogDetailView from "@/modules/blogs/BlogDetailView";
 
-export default function Page({ params }: { params: { id: string } }) {
+const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL!;
+type Params = Promise<{ id: string }>
+export default async function Page({ params }: { params: Params } ) {
+      const { id } = await params;
+      const res = await fetch(
+          `${strapiApiUrl}/api/blogs?populate[author][populate]=avatar&populate=cover_image&filters[slug][$eq]=${id}`,
+          { cache: "no-cache" }
+      );
+      const data = await res.json();
+      const post = data.data?.[0];
 
-      return (
-          <BlogDetailView id={params.id} />
-      )
+      return <BlogDetailView post={post} />;
 }
