@@ -28,7 +28,7 @@ interface StrapiPagination {
   pageCount: number;
   total: number;
 }
-
+const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL!;
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [pagination, setPagination] = useState<StrapiPagination | null>(null);
@@ -36,7 +36,6 @@ export default function VideosPage() {
   const [loading, setLoading] = useState(true);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
 
-  const strapiApiUrl = 'http://localhost:1337';
   const videosPerPage = 6;
 
   useEffect(() => {
