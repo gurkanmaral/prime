@@ -53,6 +53,53 @@ export default function Home() {
         fetchCarouselVideos();
     }, []);
 
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: '',
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<string | null>(null);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value,
+        }));
+    };
+
+
+
     return (
         <div
             className="w-screen min-h-screen bg-[radial-gradient(circle_farthest-corner_at_10%_20%,_#232526_0%,_#414345_90%)]">
@@ -84,13 +131,13 @@ export default function Home() {
                         </div>
 
                         <div className="lg:pl-4">
-                            <div className="text-base leading-7 text-gray-400">
-                                <p className="text-base font-semibold leading-7 text-indigo-400">10 Yılı Aşkın
+                            <div className="text-sm leading-7 text-gray-400 sm:text-base">
+                                <p className="text-sm font-semibold leading-7 text-indigo-400 sm:text-base">10 Yılı Aşkın
                                     Tecrübe</p>
-                                <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                <h1 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                                     Hedeflerinize Ulaşmanız İçin Buradayız
                                 </h1>
-                                <div className="mt-6 max-w-xl space-y-6">
+                                <div className="mt-6 max-w-xl space-y-6 text-xs sm:text-sm">
                                     <p>
                                         2010 yılından bu yana, sağlıklı yaşam ve spor kültürünü topluluğumuza yayma
                                         misyonuyla hizmet veriyoruz. Amacımız, sadece fiziksel olarak değil, zihinsel
@@ -113,8 +160,8 @@ export default function Home() {
                                         </svg>
                                     </div>
                                     <div className="ml-4">
-                                        <h3 className="text-base font-semibold text-white">Kişiye Özel Programlar</h3>
-                                        <p className="mt-1 text-sm text-gray-400">Uzman antrenörlerimizle hedeflerinize
+                                        <h3 className="text-sm font-semibold text-white sm:text-base">Kişiye Özel Programlar</h3>
+                                        <p className="mt-1 text-xs text-gray-400 sm:text-sm">Uzman antrenörlerimizle hedeflerinize
                                             özel hazırlanan programlar.</p>
                                     </div>
                                 </div>
@@ -127,8 +174,8 @@ export default function Home() {
                                         </svg>
                                     </div>
                                     <div className="ml-4">
-                                        <h3 className="text-base font-semibold text-white">Dinamik Grup Dersleri</h3>
-                                        <p className="mt-1 text-sm text-gray-400">Yoga, Pilates, HIIT ve daha fazlasıyla
+                                        <h3 className="text-sm font-semibold text-white sm:text-base">Dinamik Grup Dersleri</h3>
+                                        <p className="mt-1 text-xs text-gray-400 sm:text-sm">Yoga, Pilates, HIIT ve daha fazlasıyla
                                             enerjinizi yükseltin.</p>
                                     </div>
                                 </div>
@@ -149,9 +196,9 @@ export default function Home() {
             >
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-base font-semibold leading-7 text-indigo-400">Antrenmanlar & İpuçları</h2>
-                        <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Videolarımız</p>
-                        <p className="mt-6 text-lg leading-8 text-gray-300">Uzman eğitmenlerimiz tarafından hazırlanan özel antrenman videoları ile formunuzu koruyun ve yeni teknikler öğrenin.</p>
+                        <h2 className="text-sm font-semibold leading-7 text-indigo-400 sm:text-base">Antrenmanlar & İpuçları</h2>
+                        <p className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">Videolarımız</p>
+                        <p className="mt-6 text-base leading-8 text-gray-300 sm:text-lg">Uzman eğitmenlerimiz tarafından hazırlanan özel antrenman videoları ile formunuzu koruyun ve yeni teknikler öğrenin.</p>
                     </div>
 
                     <div className="relative mt-16 min-h-[300px]">
@@ -180,12 +227,12 @@ export default function Home() {
                                                     <source src={`${strapiApiUrl}${video.video_file.url}`} type="video/mp4" />
                                                 </video>
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                                                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                                                    <h3 className="text-xl font-bold text-white">{video.title}</h3>
-                                                    <p className="mt-1 text-sm text-gray-300">{video.description.substring(0,100)}</p>
-                                                    <Link href="/videos" className="mt-4 flex items-center text-sm font-semibold text-indigo-400 hover:text-indigo-300">
+                                                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
+                                                    <h3 className="text-base font-bold text-white sm:text-xl">{video.title}</h3>
+                                                    <p className="mt-1 text-xs text-gray-300 sm:text-sm">{video.description.substring(0,100)}</p>
+                                                    <Link href="/videos" className="mt-4 flex items-center text-xs font-semibold text-indigo-400 hover:text-indigo-300 sm:text-sm">
                                                         Videoyu İzle
-                                                        <PlayCircle className="ml-2 h-5 w-5" />
+                                                        <PlayCircle className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                                                     </Link>
                                                 </div>
                                             </div>
@@ -202,7 +249,7 @@ export default function Home() {
                         )}
                     </div>
                     <div className="mt-16 text-center">
-                        <Button asChild size="lg" className="bg-indigo-500 text-white hover:bg-indigo-400">
+                        <Button asChild size="lg" className="bg-indigo-500 text-white hover:bg-indigo-400 text-sm sm:text-base">
                             <Link href="/videos">Tüm Videoları Gör</Link>
                         </Button>
                     </div>
@@ -236,10 +283,10 @@ export default function Home() {
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                             Bizimle İletişime Geçin
                         </h2>
-                        <p className="mt-4 text-lg leading-8 text-gray-300">
+                        <p className="mt-4 text-base leading-8 text-gray-300 sm:text-lg">
                             Sorularınız, üyelik talepleriniz veya herhangi bir konuda bilgi almak için bize yazmaktan
                             çekinmeyin.
                         </p>
@@ -249,12 +296,12 @@ export default function Home() {
                         className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:max-w-none lg:grid-cols-2">
 
                         <div className="flex flex-col justify-center">
-                            <h3 className="text-2xl font-semibold leading-10 text-white">Bize Ulaşın</h3>
-                            <p className="mt-2 text-base leading-7 text-gray-400">
+                            <h3 className="text-xl font-semibold leading-10 text-white sm:text-2xl">Bize Ulaşın</h3>
+                            <p className="mt-2 text-sm leading-7 text-gray-400 sm:text-base">
                                 Aşağıdaki bilgilerden veya yandaki formu kullanarak bize ulaşabilirsiniz. En kısa sürede
                                 size geri dönüş yapacağız.
                             </p>
-                            <dl className="mt-10 space-y-6 text-base leading-7 text-gray-300">
+                            <dl className="mt-10 space-y-6 text-sm leading-7 text-gray-300 sm:text-base">
                                 <div className="flex gap-x-4">
                                     <dt className="flex-none">
                                         <span className="sr-only">Adres</span>
@@ -290,48 +337,65 @@ export default function Home() {
                             </dl>
                         </div>
 
-                        <form className="space-y-8">
+                        <form onSubmit={handleSubmit} className="space-y-8">
                             <div>
-                                <Label htmlFor="name" className="block text-base font-semibold leading-6 text-white">Ad
+                                <Label htmlFor="name"
+                                       className="block text-sm font-semibold leading-6 text-white sm:text-base">Ad
                                     Soyad</Label>
                                 <div className="mt-2.5">
                                     <Input
                                         type="text"
                                         id="name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
                                         autoComplete="name"
+                                        required
                                         className="block w-full rounded-md border-0 bg-white/5 py-2 px-3.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
                             <div>
                                 <Label htmlFor="email"
-                                       className="block text-base font-semibold leading-6 text-white">E-posta</Label>
+                                       className="block text-sm font-semibold leading-6 text-white sm:text-base">E-posta</Label>
                                 <div className="mt-2.5">
                                     <Input
                                         type="email"
                                         id="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
                                         autoComplete="email"
+                                        required
                                         className="block w-full rounded-md border-0 bg-white/5 py-2 px-3.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
                             <div>
                                 <Label htmlFor="message"
-                                       className="block text-base font-semibold leading-6 text-white">Mesajınız</Label>
+                                       className="block text-sm font-semibold leading-6 text-white sm:text-base">Mesajınız</Label>
                                 <div className="mt-2.5">
                                     <Textarea
                                         id="message"
+                                        value={formData.message}
+                                        onChange={handleInputChange}
                                         rows={4}
+                                        required
                                         className="block w-full rounded-md border-0 bg-white/5 py-2 px-3.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
                             <div className="flex justify-end">
                                 <Button type="submit"
-                                        className="w-full bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    Mesajı Gönder
+                                        disabled={isSubmitting}
+                                        className="w-full bg-indigo-600 px-3.5 py-2.5 text-center text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm">
+                                    {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : 'Mesajı Gönder'}
                                 </Button>
                             </div>
+                            {submitStatus === 'success' && (
+                                <p className="text-green-400 text-center">Mesajınız Gönderildi!</p>
+                            )}
+                            {submitStatus === 'error' && (
+                                <p className="text-red-400 text-center">Hata oluştu.</p>
+                            )}
                         </form>
                     </div>
                 </div>

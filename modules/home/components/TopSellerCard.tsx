@@ -49,22 +49,22 @@ const TopSellersCard = ({
 
             {active !== id ? (
                 <div className="absolute bottom-8 left-4 md:left-8 flex items-center justify-center">
-                    <h3 className="text-lg md:text-2xl font-bold text-white [writing-mode:vertical-rl] rotate-180">
+                    <h3 className="text-base sm:text-lg md:text-2xl font-bold text-white [writing-mode:vertical-rl] rotate-180">
                         {name}
                     </h3>
                 </div>
             ) : (
                 <motion.div
-                    className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end h-1/2"
+                    className="absolute bottom-0 left-0 w-full p-4 sm:p-6 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end h-1/2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">{name}</h2>
-                    <p className="mt-2 text-sm text-gray-300 max-w-xs">{description}</p>
-                    <Button asChild className="mt-4 w-fit bg-indigo-500 text-white hover:bg-indigo-400">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{name}</h2>
+                    <p className="mt-2 text-xs sm:text-sm text-gray-300 max-w-xs">{description}</p>
+                   {/* <Button asChild className="mt-4 w-fit bg-indigo-500 text-white hover:bg-indigo-400 text-xs sm:text-sm">
                         <Link href={`/programs/${id}`}>View Program</Link>
-                    </Button>
+                    </Button>*/}
                 </motion.div>
             )}
         </motion.div>

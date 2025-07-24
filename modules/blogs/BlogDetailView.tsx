@@ -115,7 +115,7 @@ const BlogDetailView =({post}:Props) => {
                     href="/blog"
                     className="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-colors"
                 >
-                    Explore More Articles
+                    Daha Fazla İncele
                 </Link>
             </footer>
         </div>

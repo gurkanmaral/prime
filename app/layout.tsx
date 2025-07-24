@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: "My Gym App",
-    description: "Manage your fitness content",
+    title: "Primeformance",
+    description: "Primeformance Athletic",
 };
 
 export default function RootLayout({

@@ -28,9 +28,8 @@ interface BlogListProps {
     strapiUrl: string;
 }
 
-// In-memory cache
 const cache: { [key: string]: { data: BlogPost[], pagination: StrapiPagination, timestamp: number } } = {};
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+const CACHE_DURATION = 5 * 60 * 1000;
 
 export function BlogList({ initialPosts, initialPagination, strapiUrl }: BlogListProps) {
     const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
@@ -91,7 +90,7 @@ export function BlogList({ initialPosts, initialPagination, strapiUrl }: BlogLis
                         <motion.h1 initial={{opacity: 0, y: -20}} animate={{opacity: 1, y: 0}}
                                    transition={{duration: 0.5}}
                                    className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
-                            Our Blog & Insights
+                            Bloglarımız
                         </motion.h1>
                         <motion.p initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.5, delay: 0.2}}
                                   className="mt-4 text-lg leading-8 text-gray-300">
@@ -117,7 +116,7 @@ export function BlogList({ initialPosts, initialPagination, strapiUrl }: BlogLis
                             </Button>
                         )}
                         {!loading && !hasMore && posts.length > 0 && (
-                            <p className="text-gray-400">You've reached the end!</p>
+                            <p className="text-gray-400"></p>
                         )}
                     </div>
                 </main>

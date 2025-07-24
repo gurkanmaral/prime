@@ -90,8 +90,8 @@ const TopSellers = ({ games = dummyPrograms }: SliderProps) => {
 
     return (
         <div className="w-full mx-auto flex flex-col max-w-7xl">
-            <h1 className={cn("text-3xl font-bold text-white mb-8 text-center", font.className)}>
-                Explore Our Programs
+            <h1 className={cn("text-2xl sm:text-3xl font-bold text-white mb-8 text-center", font.className)}>
+                Programlarımız
             </h1>
             <motion.div
                 className="flex flex-col md:flex-row min-h-[60vh] gap-4 pt-2"
