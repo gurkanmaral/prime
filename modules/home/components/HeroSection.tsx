@@ -49,7 +49,7 @@ export const HeroSection = () => {
                         className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl"
                         variants={itemVariants}
                     >
-                        <span className="block">PrimePerformance</span>
+                        <span className="block">Primeformance</span>
                     </motion.h1>
                     <motion.div variants={itemVariants}>
                         <span className="block text-indigo-400 mt-2 text-2xl">  Potansiyelini Ortaya Çıkar,</span>

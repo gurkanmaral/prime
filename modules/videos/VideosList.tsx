@@ -86,13 +86,14 @@ export function VideoList({ initialVideos, initialPagination, strapiUrl }: Video
     };
 
     const handleWatchVideo = (videoFileUrl: string) => {
-        setSelectedVideoUrl(`${strapiUrl}${videoFileUrl}`);
+        setSelectedVideoUrl(`${videoFileUrl}`);
     };
 
     const handleCloseModal = () => {
         setSelectedVideoUrl(null);
     };
 
+    console.log(videos,"aa2")
     return (
         <>
             <div
@@ -142,7 +143,7 @@ export function VideoList({ initialVideos, initialPagination, strapiUrl }: Video
                             </Button>
                         )}
                         {!loading && !hasMore && videos.length > 0 && (
-                            <p className="text-gray-400">You've reached the end!</p>
+                            <p className="text-gray-400"></p>
                         )}
                     </div>
 
