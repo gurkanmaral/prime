@@ -112,7 +112,7 @@ export function VideoList({ initialVideos, initialPagination, strapiUrl }: Video
                                 <div className="relative overflow-hidden cursor-pointer"
                                      onClick={() => handleWatchVideo(video.video_file.url)}>
                                     {video.thumbnail?.url && (
-                                        <img src={`${strapiUrl}${video.thumbnail.url}`} alt={video.title}
+                                        <img src={`${video.thumbnail.url}`} alt={video.title}
                                              className="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"/>
                                     )}
                                     <div
